@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static android.R.attr.start;
+
 public class BookViewHolder extends RecyclerView.ViewHolder {
 
     private CardView cardView;
@@ -34,7 +36,12 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context, bookNameText.getText(), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(v.getContext(),EditActivity.class);
+                intent.putExtra("NAME",bookNameText.getText());
+                intent.putExtra("PRICE",bookPriceText.getText());
+                intent.putExtra("INSTOCK",inStockText.getText());
+                v.getContext().startActivity(intent);
 
             }
         });

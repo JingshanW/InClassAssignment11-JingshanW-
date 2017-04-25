@@ -36,6 +36,19 @@ public class EditActivity extends AppCompatActivity {
         bookName= (TextView) findViewById(R.id.book_name_textview);
         bookPrice= (TextView) findViewById(R.id.book_price_textview);
         inStock= (CheckBox) findViewById(R.id.in_stock_checkbox);
+
+        Intent intent=getIntent();
+        String name=intent.getStringExtra("NAME");
+        bookName.setText(name);
+        String price=intent.getStringExtra("PRICE");
+        bookPrice.setText(price);
+        String instock=intent.getStringExtra("INSTOCK");
+        if(instock=="true"){
+            inStock.isChecked();
+        }
+        else{}
+
+
     }
 
     @Override
@@ -46,10 +59,21 @@ public class EditActivity extends AppCompatActivity {
 
 
     public void saveBook(MenuItem item) {
-        String id = UUID.randomUUID().toString();
-        Random random = new Random();
+        String id=bookName.getText().toString();
+//        String id = UUID.randomUUID().toString();
+//        Random random = new Random();
         Book b=new Book(bookName.getText().toString(),Integer.parseInt(bookPrice.getText().toString()),inStock.isChecked());
         bookReference.child(id).setValue(b);
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void delete(MenuItem item) {
+        String id=bookName.getText().toString();
+//        String id = UUID.randomUUID().toString();
+//        Random random = new Random();
+        bookReference.child(id).removeValue();
+
         Intent intent=new Intent(this,MainActivity.class);
         startActivity(intent);
     }
